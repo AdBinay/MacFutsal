@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<div class="uk-modal-header">
+    <h6 class="uk-modal-title h5">Update Player</h6>
+</div>
+
+<form hx-post="{% url 'player-update' post.id player.id %}">
+    <div class="uk-modal-body" style="min-height:60vh !important">
+        {{form|crispy}}
+    </div>
+<div class="uk-modal-footer uk-text-right">
+    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+    <button class="uk-button uk-button-primary" type="submit">Save</button>
+</div>
+</form>

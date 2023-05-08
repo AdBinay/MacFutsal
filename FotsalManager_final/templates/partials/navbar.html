@@ -1,0 +1,103 @@
+<nav class="uk-navbar-container uk-box-shadow-hover-medium uk-box-shadow-medium z-2 mb-3" hx-preserve style="background-color: #ffffff;">
+    <div class="uk-container uk-container-expand">
+        <div uk-navbar>
+            
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li class="d-flex">
+
+                        <a class="text-dark me-2 d-md-none" href="#category-menu" uk-toggle>
+                            <span uk-icon="table"></span>
+                        </a>
+
+                        <a class="uk-text-primary uk-text-bolder" href="{% url 'home' %}">MacFutsal</a>
+                    </li>
+                    <li class="d-md-none">
+                        <a href="#" id="navbar-search-toggler">
+                            <span uk-icon='search'></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="uk-navbar-center">
+                <div class="uk-navbar-nav position-relative">
+                    <form class="uk-search uk-search-default uk-width-large d-lg-block border " id="navbar-searchform">
+                        <span uk-search-icon></span>
+                        <input class="uk-search-input" type="search" placeholder="Search" aria-label="Search" 
+                        _ = "on input js if (event.target.value.length >= 1) {return $('#navsearch-resultbox').show()} else {return $('#navsearch-resultbox').hide()}"
+                        />
+                    </form>
+                    <ul class="uk-list uk-list-divider position-absolute start-0 end-0 bg-light z-3 p-md-4 rounded-3" id="navsearch-resultbox" style="margin-top: 3.3em; min-height: 20em;display: none;">
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a href="{% url 'home' %}"><span class="text-dark" uk-icon="home"></span></a>
+                    </li>
+                    <li><a href="#"><span class="text-dark"  uk-icon="comment"></span></a></li>                        
+                    <li class="d-block d-xl-none"><a href="#modal-create-listing" uk-toggle ><span class="text-dark" uk-icon="plus-circle"></span></a></li>                        
+                    <li class="dropdown" >
+                        <a href=""><span class="text-dark"  uk-icon="bell"></span></a>
+                        <div uk-dropdown="pos: bottom-center">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                
+                                {% if user.is_authenticated %}
+                                
+                            <li><a class="text-dark" href="#">
+                                No new Notification
+                            </a></li>
+                                    {% else %}
+                                    <li><a class="text-dark" href="#">
+                                        Login first
+                                    </a></li>
+                                    
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="text-dark" href="#"><span uk-icon="user"></span></a>
+                            <div uk-dropdown="pos: top-right">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    {% if user.is_authenticated %}
+                                        <li><a class="text-dark" href="{% url 'redirect_profile' %}">
+                                            <span class="text-dark"  uk-icon="arrow-right"></span>
+                                            {{user.profile}}
+                                        </a></li>
+                                        <li><a class="text-dark" href="{% url 'account_change_password' %}"><span class="text-dark" uk-icon="cog"></span>Settings</a></li>
+                                        <li><a class="text-dark" href="{% url 'account_logout' %}"><span class="text-dark" uk-icon="sign-out"></span>Logout</a></li>
+                                    {% else %}
+                                        <li><a class="text-dark" href="#"><span class="text-dark"  uk-icon="receiver"></span>Get support</a></li>
+                                        <li><a class="text-dark" href="{% url 'account_signup' %}"><span class="text-dark" uk-icon="pencil"></span>Register</a></li>
+                                        <li><a class="text-dark" href="{% url 'account_login' %}"><span class="text-dark" uk-icon="bolt"></span>Login</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                    </li>
+                    
+                    <li class="d-none d-xl-block"><a href="{% url 'create-post' %}" >
+                        <span class="border border-primary p-2 uk-flex-center">
+                            <span class="text-dark"  uk-icon="plus-circle"></span>
+                            <span class="text-dark"  >Add Post</span>
+                        </span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div id="category-menu" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+    </div>
+</div>

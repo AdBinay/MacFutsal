@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "FotsalManager.rar": true
+    },
+    "hide-files.files": [
+        "FotsalManager.rar"
+    ],
+    "liveServer.settings.root": "/templates",
+}

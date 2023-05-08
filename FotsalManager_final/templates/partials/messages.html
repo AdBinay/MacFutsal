@@ -1,0 +1,8 @@
+{% for message in messages %}
+<li  class="alert-list list-group-item">
+    <div class="uk-alert-{{message.tags}}" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{ message }}.</p>
+    </div>
+</li>
+{% endfor %}

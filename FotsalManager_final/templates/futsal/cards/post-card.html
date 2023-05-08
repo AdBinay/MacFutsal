@@ -1,0 +1,101 @@
+{% load static %}
+
+<div class="uk-card uk-card-default" style="min-width:300px !important">
+    <div class="uk-inline w-100">
+
+        <div class="uk-card-media-top position-relative" style="height:200px">
+            <img 
+                src="{% if post.post_image.url %}{{post.post_image.url}}{% else %}{% static 'images/ballkick.jpg' %}{% endif %}" 
+                alt="{{post.title}}"
+                class="object-center object-cover position-absolute w-100 h-100"
+            >
+        </div>
+
+        <div class="uk-card-body p-3 overflow-hidden" style="min-height:6em;max-height:6em !important">
+            {{post.title}}
+        </div>
+        
+        {% if user.is_authenticated %}
+            
+            
+        <div uk-dropdown="pos: center">
+
+            <ul class="uk-nav uk-dropdown-nav">
+                
+                {% if user.is_staff %}
+                    <li>
+                        <a 
+                            href="#CorApplicationList" 
+                            uk-toggle
+                            hx-get="{% url 'request-cor' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#CorApplicationBody"
+                            hx-swap="innerHTML"
+                            >Select Cordinators</a>
+                    </li>
+                    <li>
+                        <a 
+                            href="#GMApplicationList" 
+                            uk-toggle
+                            hx-get="{% url 'request-gm' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#GMApplicationBody"
+                            hx-swap="innerHTML"
+                            >Select GM</a>
+                    </li>
+                    <li>
+                        <button style="background-color: blue;"><a href="{% url 'tie-sheet' %}" style="color: white;">Create Tie-Sheet</a></button>
+                    </li>
+                {% else %}
+                    <li>
+                        
+                        {% if user == post.get_cordinator_user %}
+                        <a href="{% url 'team-manager' post.id %}">Team Manager</a>
+                        {% elif post.get_cordinator_user %}
+                        <a href="{% url 'team-list' post.id %}">View Teams</a>
+                        {% else %}
+                        <a 
+                            hx-post="{% url 'request-cor' post.id %}"
+                            hx-swap="innerHTML"
+                            hx-trigger="click"
+                            href="#">
+                            
+                            {% if user not in post.cordinator_in_review %}
+                            Request Cordinator
+                            {% else %}
+                            Redo Cordinator
+                            {% endif %}
+                                
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        
+                        {% if user == post.get_gm_user %}
+                        <a href="{% url 'match-manager' post.id %}">Game Manager</a>
+                        {% elif post.get_gm_user %}
+                        <a href="{% url 'match-list' post.id %}">View Matches</a>
+                        {% else %}
+                        <a 
+                            hx-post="{% url 'request-gm' post.id %}"
+                            hx-swap="innerHTML"
+                            hx-trigger="click"
+                            href="#">
+                            
+                            {% if user not in post.gm_in_review %}
+                            Request GM
+                            {% else %}
+                            Redo GM
+                            {% endif %}
+                                
+                        </a>
+                        {% endif %}
+                    </li>
+                    
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>

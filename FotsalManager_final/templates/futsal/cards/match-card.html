@@ -1,0 +1,43 @@
+{% load static %}
+<a href="{% url 'match-detail' post.id match.id %}">
+<div class="uk-card uk-card-default">
+    <div class="d-flex justify-content-between position-relative">
+       
+            <h4 class="text-center text-dark  position-absolute d-flex justify-content-center align-items-center h-100 w-100">
+                <span class="bg-dark text-danger rounded-circle p-3 border border-3 border-light">VS</span>
+            </h4>
+       
+        <div>
+            <div class="uk-card-media-top">
+                <img src="
+                {% if match.team_1.team_image %}
+                {{match.team_1.team_image.url}}
+                {% else %}
+                {% static 'images/ballkick.jpg' %}
+                {% endif %}
+                
+                " width="1800" height="1200" alt="">
+            </div>
+    
+            <div class="uk-card-body p-3 overflow-hidden uk-text-small uk-text-left" style="min-height:6em;max-height:6em !important">
+                {{match.team_1.title}}
+            </div>    
+        </div>
+        <div>
+            <div class="uk-card-media-top">
+                <img src="
+                {% if match.team_2.team_image %}
+                {{match.team_2.team_image.url}}
+                {% else %}
+                {% static 'images/ballkick.jpg' %}
+                {% endif %}
+                " width="1800" height="1200" alt="">
+            </div>
+    
+            <div class="uk-card-body p-3 overflow-hidden uk-text-small uk-text-right" style="min-height:6em;max-height:6em !important">
+                {{match.team_2.title}}
+            </div>
+        </div>
+    </div>
+</div>
+</a>

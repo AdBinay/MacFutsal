@@ -1,0 +1,65 @@
+ {% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container bg-light min-vh-100">
+    <h5 class="text-center border-bottom text-primary py-2">
+        Team Manager (Cordinator)
+    </h5>
+    <div class="row">
+        
+        <div class="col-lg-4 border-end">
+            {% include 'futsal/forms/team-create.html' %}
+            <hr>
+            {% include 'futsal/forms/player-create.html' %}
+        </div>
+
+        <div class="col-lg-8">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Date joined</th>
+                        <th>Score</th>
+                        <th>team</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for player in object_list %}
+                    <tr>
+                        <td>{{player.player.get_full_name}}</td>
+                        <td>{{player.player.username}}</td>
+                        <td>{{player.player.profile.created_since}}</td>
+                        <td>{{player.score}}</td>
+                        <td><a href="{% url 'team-detail' post.id player.team.id %}">
+                            {{player.team.title}}
+                        </a></td>
+                        <td>
+                            <a 
+                                class="uk-button uk-button-default" 
+                                href="#UpdatePlayer" 
+                                hx-get="{% url 'player-update' post.id player.id %}"
+                                hx-target="#UpdatePlayerForm"
+                                hx-swap="innerHTML"
+                                uk-toggle>
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="UpdatePlayer" uk-modal>
+    <div class="uk-modal-dialog" uk-overflow-auto id="UpdatePlayerForm">
+        
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container p-2 p-lg-4 mb-4">
+    <div class="uk-slider-container-offset" uk-slider>
+      <h4 class="text-start uk-text-primary p-2">
+        {{cordinator.profile}} Teams
+      </h4>
+        <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-grid" uk-grid>
+            {% include 'futsal/partials/team-list.html' %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

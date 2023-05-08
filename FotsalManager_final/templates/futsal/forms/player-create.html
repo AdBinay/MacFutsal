@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+<div id="create-player" hx-trigger="finish" hx-swap="innerHTML" hx-get="{% url 'player-create' post.id %}" >
+    <h4 class="text-primary">Create Player</h4>
+    <p><small class="text-secondary">Please reload the page after player created </small></p>
+
+    
+    <form 
+        hx-post="{% url 'player-create' post.id %}" 
+        hx-trigger="submit" 
+        hx-encoding="multipart/form-data"
+        hx-target="#create-player"
+        hx-swap="innerHTML"
+        class="my-3">
+        {% csrf_token %}
+        {{player_form|crispy}}
+        <button type="submit" class="uk-button uk-button-primary my-2">Create Player</button>
+    </form>    
+
+</div>

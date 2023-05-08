@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+        <div class="container min-vh-100 bg-light">
+            <div class="row justify-content-center my-3">
+                <div class="col-4 py-3">
+                    <h4 class="text-primary text-center border-end border-bottom pb-3">
+                        {{team.title}}
+                    </h4>
+                    <div class="col-12">
+                        <img src="{{team.team_image.url}}" alt="" class="border w-100 object-cover object-center" style="height:350px;max-height:350px">
+                    </div>
+                    <div class="col-12">
+                        <table class="uk-table  uk-table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Post</td>
+                                    <td>{{team.post}}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Total Score</td>
+                                    <td>{{team.score}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Match Complete Status</td>
+                                    <td>
+                                        {% if team.match_completed %}
+                                        Yes
+                                        {% else %}
+                                        No
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                 
+
+                                <tr>
+                                    <td>Game Manager</td>
+                                    <td>
+                                        {% if team.post.get_gm_user %}
+                                        {{team.post.get_gm_user.profile}}
+                                        {% else %}
+                                        N/A
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Coordinator</td>
+                                    <td>
+                                        {% if team.post.get_cordinator_user %}
+                                        {{team.post.get_cordinator_user.profile}}
+                                        {% else %}
+                                        N/A
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Total Player Count</td>
+                                    <td>{{team.players_count}}</td>
+                                </tr>
+                                
+                                {% if user == post.get_cordinator_user %} 
+                                <tr>
+                                    <td>
+                                        <a 
+                                            class="uk-button uk-button-primary" 
+                                            href="#UpdateTeam" uk-toggle
+                                            hx-get="{% url 'team-update' team.post.id team.id %}"
+                                            hx-trigger="click"
+                                            hx-target="#UpdateTeamBody"
+                                            hx-swap="innerHTML"
+                                            >Update</a>
+                                    </td>
+                                    <td>
+                                        <a 
+                                            class="uk-button uk-button-danger" 
+                                            href="#" 
+                                            hx-post="{% url 'team-delete' post.id team.id %}"
+                                            hx-confirm="Are you sure want to delete?"
+                                            hx-swap="none"
+                                            >Delete</a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+
+
+                          </tbody>
+                           
+                        </table>
+                    </div>
+                </div>
+                <div class="col-8">
+                    
+                    {% if team.all_players %}    
+                    <table class="uk-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Date joined</th>
+                                <th>Score</th>
+                                {% if user == post.get_cordinator_user %} 
+                                <th>Action</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for player_instance in team.all_players %}
+                            <tr>
+                                <td>{{player_instance.player.get_full_name}}</td>
+                                <td>{{player_instance.player.username}}</td>
+                                <td>{{player_instance.player.profile.created_since}}</td>
+                                <td>{{player_instance.score}}</td>
+                                {% if user == post.get_cordinator_user %} 
+                                <td>
+                                    <a 
+                                        class="uk-button uk-button-default" 
+                                        href="#UpdatePlayer" 
+                                        hx-get="{% url 'player-update' post.id player_instance.player.id %}"
+                                        hx-target="#UpdatePlayerForm"
+                                        hx-swap="innerHTML"
+                                        uk-toggle>
+                                        Update
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+                    <div class="p-3">
+                        <h4>No results.</h4>
+                        <hr>
+                        <p>No players have been assigned to this team</p>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        {% if user == post.get_cordinator_user %} 
+        <div id="UpdateTeam" uk-modal>
+            <div class="uk-modal-dialog" uk-overflow-auto id="UpdateTeamBody">
+                
+            </div>
+        </div>
+        
+
+        <div id="UpdatePlayer" uk-modal>
+            <div class="uk-modal-dialog" uk-overflow-auto id="UpdatePlayerForm">
+                
+            </div>
+        </div>
+        {% endif %}
+{% endblock content %}
+    

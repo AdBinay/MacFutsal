@@ -1,0 +1,80 @@
+body {
+    min-height: 100vh;
+    color:black !important;
+}
+.preloader{
+    z-index: 50000;
+    pointer-events: none !important;
+}
+
+@media screen and (max-width:768px) {
+    .uk-navbar-container .uk-navbar {
+        display: block !important;
+    }
+    .uk-navbar-container .uk-navbar-left,
+    .uk-navbar-container .uk-navbar-center {
+        display: block !important;  
+    }
+    .uk-navbar-container .uk-container-expand {
+        padding:0 !important;
+    }
+    .uk-navbar-container .uk-container-expand,
+    .uk-navbar-container .uk-navbar-left,
+    .uk-navbar-container .uk-navbar-left .uk-navbar-nav,
+    .uk-navbar-container .uk-width-large.uk-search {
+        width: 100vw !important;
+    }
+    .uk-navbar-container .uk-navbar-left > ul {
+        display: flex !important;
+        justify-content: space-between!important;
+    }
+    .uk-navbar-container .uk-navbar-left > ul li {
+        padding: 0 1em !important;
+    }
+    .uk-navbar-container .uk-navbar-center:not(:only-child) {
+        position: relative !important;
+    }
+    /* .uk-navbar-container .uk-container-expand {
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        background-color: white;
+        border-bottom: 1px solid #bbb;
+        z-index: 999999 !important;
+    }
+     */
+    .uk-navbar-container .uk-navbar-right .uk-navbar-nav{
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        display:flex !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        width: 100vw !important;
+        background-color: white;
+        border-top: 1px solid #bbb;
+        z-index: 999999 !important;
+    }
+    .uk-navbar-container .uk-navbar-right {
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+            
+    }
+    .uk-navbar-container .uk-navbar-right .uk-navbar-nav a{
+        display: flex !important;
+        align-items: center !important;
+    }
+}
+
+body{
+    min-height: 100vh !important;
+    background: url("/static/images/home.png");
+    background-size: cover !important;
+    background-position: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}

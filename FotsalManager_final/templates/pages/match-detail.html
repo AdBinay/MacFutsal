@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container min-vh-100 bg-light">
+
+        <div class="row p-0 justify-content-between flex-row position-relative" style="height:400px !important;max-height:400px !important">
+            
+            <div class="h-100 col-6" >
+                <div class="row">
+                    <div class="col-6">
+                        <img src="{{match.team_1.team_image.url}}" class="py-2" alt="" style="height:400px;max-height:400px">
+                    </div>
+                    <div class="col-6 border">
+                        <div class="row align-items-center h-100">
+                            <div class="col-12">
+                                <h3 class="text-center">Score</h3>
+                                <h4 class="text-center">{{match.team_1.score}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-100 col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="{{match.team_2.team_image.url}}" class="py-2" alt="" style="height:400px;max-height:400px">
+                    </div>
+                    <div class="col-6 border">
+                        <div class="row align-items-center h-100">
+                            <div class="col-12">
+                                <h3 class="text-center">Score</h3>
+                                <h4 class="text-center">{{match.team_2.score}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <div class="row">
+            {% if match.team_1.all_players %}
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Team</th>
+                        <th>Score</th>
+                        <th>Active</th>
+                        {% if user == post.get_gm_user %}
+                        <th>Action</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in match.team_1.all_players %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'profile' player.id  %}">
+                            {{player.player}}
+                            </a>
+                        </td>
+                        
+                        <td>
+                            <a href="{% url 'team-detail' post.id match.team_1.id %}">
+                                {{player.team.title}}
+                            </a>
+                        </td>
+                        
+                        <td>
+                            {{player.score}}
+                        </td>
+                        
+                        <td>
+                            {{player.active}}
+                        </td>
+
+                        {% if user == post.get_gm_user %}
+                        <td>
+                            <a 
+                                class="uk-button uk-button-default" 
+                                href="#MatchPlayerUpdate" 
+                                hx-get="{% url 'gm-player-update' post.id player.pk %}"
+                                hx-target="#MatchPlayerUpdateForm"
+                                hx-swap="innerHTML"
+                                uk-toggle>
+                                Update
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+
+                    {% for player in match.team_2.all_players %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'profile' player.id  %}">
+                            {{player.player}}
+                            </a>
+                        </td>
+                        
+                        <td>
+                            <a href="{% url 'team-detail' post.id match.team_1.id %}">
+                                {{player.team.title}}
+                            </a>
+                        </td>
+                        
+                        <td>
+                            {{player.score}}
+                        </td>
+                        
+                        <td>
+                            {{player.active}}
+                        </td>
+
+                        {% if user == post.get_cordinator_user %}
+                        <td>
+                            <a 
+                                class="uk-button uk-button-default" 
+                                href="#MatchPlayerUpdate" 
+                                hx-get="{% url 'gm-player-update' post.id player.pk %}"
+                                hx-target="#MatchPlayerUpdateForm"
+                                hx-swap="innerHTML"
+                                uk-toggle>
+                                Update
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% else %}
+            <div class="p-3">
+                <h4>No results.</h4>
+                <hr>
+                <p>No players have been assigned to match team</p>
+            </div>
+            {% endif %}
+            
+        </div>
+
+    </div>
+
+    <div id="MatchPlayerUpdate" uk-modal>
+        <div class="uk-modal-dialog" uk-overflow-auto id="MatchPlayerUpdateForm">
+            
+        </div>
+    </div>
+{% endblock content %}
+    

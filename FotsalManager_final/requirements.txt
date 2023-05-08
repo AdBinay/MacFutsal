@@ -1,0 +1,13 @@
+django
+Pillow
+django-htmx
+django-htmx-refresh
+django-allauth
+django-crispy-forms
+django-debug-toolbar
+crispy-bootstrap5
+folium
+geocoder
+easy_thumbnails
+django-filer
+django-mptt

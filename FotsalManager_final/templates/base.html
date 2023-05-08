@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}  
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="Cache-Control" content="no-cache">
+
+        <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}">
+        <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+        
+        <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>
+        <script src="{% static 'lib/htmx.min.js' %}"></script>
+        <script src="{% static 'lib/jquery-3.6.4.min.js' %}"></script>
+        <script src="{% static 'lib/uikit.min.js' %}"></script>
+        <script src="{% static 'lib/uikit-icons.min.js' %}"></script>
+
+        <script>
+            function load_image(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var img = $(event.target).closest(".image_parent").find("img");
+                    if (img) {
+                        img.attr('src', this.result);
+                    }
+                }
+            }            
+        </script>
+
+        <title>
+            
+            {% block title %}
+                    
+            {% endblock title %}
+        </title>
+    </head>
+
+    <body class="bg-secondary pb-4 pb-md-0 " hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        {% csrf_token %}
+
+        {% include 'partials/navbar.html' %}
+
+        <ul class="messages" id="MessegeNotification">
+        {% if messages %}
+            {% include 'partials/messages.html' %}
+        {% endif %}
+        </ul>
+
+        {% block body %}
+
+            {% block content %}
+            {% endblock content %}
+        
+        {% endblock body %}
+        
+       
+        <section class="bg-light mt-5 pt-3 mb-0">
+            {% include "partials/footer.html" %}
+        </section>
+        
+        <script>
+            $(document).ready(function() {
+                // show the alert
+                window.setTimeout(function() {
+                    $(".alert-list").fadeTo(500, 0).slideUp(500, function(){
+                        $(this).remove(); 
+                    });
+                }, 3000);
+                
+            });
+        </script>
+    </body>
+
+</html>
+
+

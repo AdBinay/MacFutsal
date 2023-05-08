@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container bg-light min-vh-100">
+    <h5 class="text-center border-bottom text-primary py-2">
+        Match Manager (Game Manager)
+    </h5>
+    <div class="row">
+        
+        <div class="col-lg-4 border-end">
+            {% include 'futsal/forms/match-create.html' %}
+        </div>
+
+        <div class="col-lg-8">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Team 1</th>
+                        <th>Team 1 score</th>
+                        <th>Team 2</th>
+                        <th>Team 2 score</th>
+                        <th>Draw</th>
+                        <th>Completed</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for match in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'match-detail' post.id match.id %}">
+                            {{match.title}}
+                            </a>
+                        </td>
+                        
+                        <td>
+                            <a href="{% url 'team-detail' post.id match.team_1.id %}">
+                                {{match.team_1.title}}
+                            </a>
+                        </td>
+                        <td>
+                            {{match.team_1.score}}
+                        </td>
+                        
+                        <td>
+                            <a href="{% url 'team-detail' post.id match.team_2.id %}">
+                                {{match.team_2.title}}
+                            </a>
+                        </td>
+                        <td>
+                            {{match.team_2.score}}
+                        </td>
+
+                        <td>{{match.draw}}</td>
+                        <td>{{match.completed}}</td>
+                        <td>
+                            <a 
+                                class="uk-button uk-button-default" 
+                                href="#MatchUpdate" 
+                                hx-get="{% url 'match-update' post.id match.pk %}"
+                                hx-target="#MatchUpdateForm"
+                                hx-swap="innerHTML"
+                                uk-toggle>
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="MatchUpdate" uk-modal>
+    <div class="uk-modal-dialog" uk-overflow-auto id="MatchUpdateForm">
+        
+    </div>
+</div>
+{% endblock content %}

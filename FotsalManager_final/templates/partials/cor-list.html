@@ -1,0 +1,27 @@
+{% if object_list %}
+<table class="uk-table uk-table-small uk-table-divider">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Requested on</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for instance in object_list %}
+        <tr>
+            <td>{{instance.coordinator.profile}}</td>
+            <td>{{instance.created_since}}</td>
+            <td>
+                {% include 'futsal/partials/select-cor-response.html' %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h4 class="text-center py-4"> No cordinator's applications available</h4>
+    <br>
+    <p class="text-center text-muted">Please make a patience to get applications to assign cordinator for this game                    
+</p>
+{% endif %}

@@ -1,0 +1,18 @@
+
+{% if instance.selected %}
+<button class="uk-button uk-button-primary" 
+    hx-trigger="click"
+    hx-swap="innerHTML"
+    hx-target="#CorApplicationBody"
+    hx-post="{% url 'select-cor' instance.post.id instance.id %}">
+    Selected
+</button>
+{% else %}
+<button class="uk-button uk-botton-disabled" 
+    hx-trigger="click"
+    hx-swap="innerHTML"
+    hx-target="#CorApplicationBody"
+    hx-post="{% url 'select-cor' instance.post.id instance.id %}">
+    Select
+</button>
+{% endif %}

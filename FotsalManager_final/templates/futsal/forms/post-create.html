@@ -1,0 +1,17 @@
+{% extends 'futsal/forms/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block container_title %}
+Create post
+{% endblock container_title %}
+
+{% block container %}
+
+<form method="POST" action="{% url 'create-post' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button class="uk-button uk-button-primary">Create</button>
+</form>
+
+{% endblock container %}

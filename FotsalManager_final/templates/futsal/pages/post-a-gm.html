@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container bg-light py-3 min-vh-100">
+    <div class="row">
+        <div class="col-3">
+            <div class="row">
+                {% include "futsal/cards/post-card.html" %}
+                <p class="text-center py-5">
+                    {{post.description}}
+                </p>
+            </div>
+            <div class="row justify-content-center rounded-5">                
+                <h6 class="text-center bg-secondary bg-opacity-10 rounded-5 py-4">
+                    <p class="uk-text-primary">Total Application</p>
+                    <p class="uk-text-dark">{{object_list|length}}</p>
+                </h6>
+            </div>
+
+        </div>
+        <div class="col-8">
+            {% if object_list %}
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Requested on</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instance in object_list %}
+                        <tr>
+                            <td>{{instance.game_manager.profile}}</td>
+                            <td>{{instance.created_since}}</td>
+                            <td>
+                                
+                                {% if instance.selected %}
+                                <button  class="uk-button uk-botton-disabled">Selected</button>
+                                {% else %}
+                                <form action="{% url 'select-gm' post.id instance.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button  class="uk-button uk-button-primary" type="submit">Select</button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <h4 class="text-center py-4"> No game manager's applications available</h4>
+                <br>
+                <p class="text-center text-muted">Please make a patience to get applications to assign GM for this game                    
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

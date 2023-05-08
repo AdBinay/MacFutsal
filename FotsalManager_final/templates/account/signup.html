@@ -1,0 +1,34 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load account socialaccount %}
+
+{% load i18n %}
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+<h1 class="h3 text-center mb-3">{% trans "Register new account" %}</h1>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  By Sign up you are agree with our
+  <a href="http://blog.successbusiness.com/terms-conditions-and-privacy-policy-of-success-business/">Terms and
+    Condition</a>
+  <button class="uk-button uk-button-primary rounded-pill my-4 w-100" type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<div class="text-center mb-2 "  >
+  <p class="text-center">Or</p>
+  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+</div>
+{% endif %}
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+{% endblock %}
