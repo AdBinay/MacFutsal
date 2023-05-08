@@ -20,7 +20,7 @@ urlpatterns = [
     path('player-update/<int:pk>/<int:pk_player>/',views.CorUpdatePlayer.as_view(),name="player-update"),
     path('gm-player-update/<int:pk>/<int:pk_player>/',views.GMUpdatePlayer.as_view(),name="gm-player-update"),
     path('player-delete/<int:pk>/<int:pk_player>/',views.CorDeletePlayer.as_view(),name="player-delete"),
-    # Match Management for Game manager
+    # Match Management_for Game manager
     path('match-manager/<int:pk>/',views.MatchManagerView.as_view(),name="match-manager"),
     path('match-list/<int:pk>/',views.ViewMatchList.as_view(),name="match-list"),
     path('match-create/<int:pk>/',views.MatchCreateView.as_view(),name="match-create"),
