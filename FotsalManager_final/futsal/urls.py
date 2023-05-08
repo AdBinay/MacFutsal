@@ -26,6 +26,6 @@ urlpatterns = [
     path('match-create/<int:pk>/',views.MatchCreateView.as_view(),name="match-create"),
     path('match-update/<int:pk>/<int:pk_match>/',views.MatchUpdateView.as_view(),name="match-update"),
     path('match-detail/<int:pk>/<int:pk_match>/',views.MatchDetailView.as_view(),name="match-detail"),
-    # Tie-sheet Generation
+    # Tie-sheet Generation in excel file
     path('tie-sheet/', views.tie_sheet, name='tie-sheet'),
 ]
